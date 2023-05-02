@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = ('id', 'password',)
+        
         
     def to_representation(self, instance):
         context = super().to_representation(instance)
         context['favorites'] = UserFavoriteProductSerializers(instance.favorite.all(), many=True, context=self.context).data
-        
         return context
     
 class UserFavoriteProductSerializers(serializers.ModelSerializer):

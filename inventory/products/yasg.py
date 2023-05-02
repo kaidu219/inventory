@@ -1,7 +1,7 @@
 from django.urls import path, re_path
-from products.permissions import MyPermissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework import permissions
 
 
 schema_view = get_schema_view(
@@ -12,7 +12,7 @@ schema_view = get_schema_view(
         license=openapi.License(name='BSD License'),
     ),
     public=True,
-    permission_classes=(MyPermissions,),
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
@@ -20,3 +20,4 @@ urlpatterns = [
    re_path(r'^swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
